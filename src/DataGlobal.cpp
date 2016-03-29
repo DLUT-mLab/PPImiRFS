@@ -45,7 +45,7 @@ void DataGlobal::GetMirTar(const string mirname, vector<string> &tar)
 	int flag = 0;
 	int num = 0;
 	char str[100];
-	sprintf_s(str, 100, ".\\mRNA\\%s", mirname.c_str());
+	snprintf(str, 100, ".\\mRNA\\%s", mirname.c_str());
 	ifstream ifile_mrna(str);
 
 	if (ifile_mrna.is_open())

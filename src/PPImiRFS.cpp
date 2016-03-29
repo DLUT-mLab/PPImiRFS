@@ -9,6 +9,8 @@ int main(int argc, char* argv[])
 
 	start = clock();
 
+	mkdir("result", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
 	if (argc == 1)
 	{
 		fprintf(stderr, "Usage:%s [-i value] [-o value] [-p value] [-h]  arglist ... \nparameters are necessary!!!!", argv[0]);
@@ -48,7 +50,6 @@ int main(int argc, char* argv[])
 			exit(1);
 		}
 	}
-	
 	if (fileMirPredict != "" && filewppin != "" && fileMirFs != "")
 	{
 		clock_t start1 = clock();
@@ -56,32 +57,35 @@ int main(int argc, char* argv[])
 		cout << "inputing datas from input files..." << endl;
 		olog << "inputing datas from input files..." << endl;
 
+        string perl_output = "./result/protein_count.txt";
+        string perl_script = "./count_protein.pl";
+
+		//统计蛋白质数量
 		char cmd[100];
-		sprintf_s(cmd, 100, "count_protein.pl .\\inputfile\\%s .\\inputfile\\c_p.txt .\\result\\log.txt", filewppin.c_str());
+		snprintf(cmd, 100, "%s %s %s %s", perl_script.c_str(), filewppin.c_str(), perl_output.c_str(), log_file_name);
 		system(cmd);
 		memset(cmd, 0, sizeof(cmd));
 
-		ifstream icprotein(".\\inputfile\\c_p.txt");
+		//输入蛋白质数目
+		ifstream icprotein(perl_output);
 		int count_protein = 0;
 		icprotein >> count_protein;
 		icprotein.close();
 
-		sprintf_s(cmd, 100, ".\\inputfile\\%s", fileMirPredict.c_str());
-		ifstream mirpredict(cmd);
-		memset(cmd, 0, sizeof(cmd));
+		//输入待预测miRNA数据
+		ifstream mirpredict(fileMirPredict.c_str());
 
-		sprintf_s(cmd, 100, ".\\result\\%s", fileMirFs.c_str());
-		_mkdir("result");
-		ofstream fMirFs(cmd);
-		memset(cmd, 0, sizeof(cmd));	
+		//设置结果文件名
+		ofstream fMirFs(fileMirFs.c_str());
 
 		DataGlobal dg;
 		WPin wpin(count_protein);
-		
-		sprintf_s(cmd, 100, ".\\inputfile\\%s", filewppin.c_str());
+
+		//输入权重蛋白质网络数据
+		snprintf(cmd, 100, "%s", filewppin.c_str());
 		dg.InputWppin(cmd, wpin);
 		memset(cmd, 0, sizeof(cmd));
-		
+
 		clock_t finish1 = clock();
 		cout << "Running time is: " << static_cast<double>(finish1 - start1) / CLOCKS_PER_SEC << "s" << endl;
 		olog << "Running time is: " << static_cast<double>(finish1 - start1) / CLOCKS_PER_SEC << "s" << endl;

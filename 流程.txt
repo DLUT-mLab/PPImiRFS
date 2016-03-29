@@ -1,0 +1,11 @@
+主程序文件：PPImiRFS.cpp
+处理命令行参数
+调用count_protein.pl统计wppin中蛋白质数量，用于输入wppin数据于内存中
+输入蛋白质数目
+输入待预测miRNA数据
+设置结果文件名
+输入权重蛋白质网络数据，调用DataGlobal.cpp中的InputWppin函数
+获取待预测的两个miRNA名字
+获取miRNA靶基因集，调用DataGlobal.cpp中的GetMirTar函数
+计算两个靶基因集间的交集，调用compute.cpp中的computeTarNset函数
+计算两个靶基因集间的功能相似性，调用compute.cpp中的computeMrnaSetFs函数，computeMrnaSetFs调用compute.cpp中的computeMrnaFs函数，computeMrnaFs调用WPin.cpp中的LocateVertex和ComputeFs函数

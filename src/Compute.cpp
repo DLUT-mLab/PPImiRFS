@@ -33,15 +33,16 @@ void Compute::computeMrnaFs(const string tara, const string tarb, WPin &wpin, fl
 }
 
 
+/*有可能并行*/
 /*计算两个mRNA集间的综合功能相似性*/
-/*ABM_contain方法*/
+/*BMA_contain方法*/
 void Compute::computeMrnaSetFs(WPin &wpin, float &fs, vector<string> &tara, vector<string> &tarb)
 {
 	int numa = tara.size();
 	int numb = tarb.size();
 
-	//ABM and BMA辅助数组
-	vector<vector<double>> matrix;
+	//BMA辅助数组
+	vector<vector<double> > matrix;
 
 	if (numa == 0 || numb == 0)
 		fs = 0.0;
@@ -98,7 +99,6 @@ void Compute::computeMrnaSetFs(WPin &wpin, float &fs, vector<string> &tara, vect
 			matrix.push_back(matrix_col);
 		}
 
-		//ABM and BMA
 		double sum_a = 0.0;
 		double sum_b = 0.0;
 		int miss_row = 0;

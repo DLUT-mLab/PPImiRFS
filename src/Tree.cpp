@@ -103,7 +103,7 @@ int Tree::GetLevel(const int v)
 /*计算给定两个mRNA间的功能相似性*/
 
 /*边权值累乘方法*/
-//void Tree::ComputeMrFs(const int v, const int w, float &fs)                   
+//void Tree::ComputeMrFs(const int v, const int w, float &fs)
 //{
 //	float maxfs = 0.0;                                                        //保存同等路径数下最大功能相似性值
 //	float temp_fs = 1.0;                                                      //暂存当前路径的权值乘积

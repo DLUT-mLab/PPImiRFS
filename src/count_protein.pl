@@ -9,7 +9,7 @@ open IN,"<$input";
 open OUT,">$output";
 open LOG,">>$log";
 
-print LOG "count the amount of proteins...","\n";
+print LOG "Perl:  the amount of proteins...","\n";
 
 my %hash;
 my $num = 0;
